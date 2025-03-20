@@ -3,14 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Instagram Posts</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Art Gallery</title>
+    <style>
+        .post {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .post img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>My Instagram Posts</h1>
-        <div id="posts" class="posts"></div>
-    </div>
-    <script src="script.js"></script>
+    <div id="posts"></div>
+
+    <script>
+        async function fetchPosts() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/Bitsinna/art/main/posts_1.json');
+                const posts = await response.json();
+                displayPosts(posts);
+            } catch (error) {
+                console.error('Error fetching posts:', error);
+            }
+        }
+
+        function displayPosts(posts) {
+            const postsContainer = document.getElementById('posts');
+            posts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.className = 'post';
+
+                post.media.forEach(media => {
+                    const img = document.createElement('img');
+                    img.src = `https://github.com/Bitsinna/art/raw/main/${media.uri}`;
+                    postElement.appendChild(img);
+                });
+
+                if (post.title) {
+                    const title = document.createElement('h3');
+                    title.textContent = post.title;
+                    postElement.appendChild(title);
+                }
+
+                postsContainer.appendChild(postElement);
+            });
+        }
+
+        fetchPosts();
+    </script>
 </body>
 </html>
