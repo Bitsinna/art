@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const postsContainer = document.getElementById('posts');
 
     // Replace this URL with the raw.githubusercontent.com URL of your JSON file
-    const jsonUrl = 'https://raw.githubusercontent.com/Bitsinna/art/main/posts_1.json';
+    const jsonUrl = 'https://github.com/Bitsinna/art/blob/main/posts_1.json';
 
     fetch(jsonUrl)
         .then(response => response.json())
